@@ -13,6 +13,12 @@ public class Queue implements IQueue {
         data = new LinkedList();
     }
 
+    private void validateNumber(int value) {
+        if (value == Integer.MIN_VALUE || value == Integer.MAX_VALUE) {
+            throw new MissMatchException("The value is not valid for this queue");
+        }
+    }
+
     @Override
     public int getElement() {
         if (data.isEmpty()){
@@ -23,9 +29,7 @@ public class Queue implements IQueue {
 
     @Override
     public void add(int value) {
-        if (!UtilsGeneral.isNumber(String.valueOf(value))){
-            throw new MissMatchException("Value must be integer");
-        }
+        validateNumber(value);
         if (data.isEmpty()){
             data.add(value);
         }else {

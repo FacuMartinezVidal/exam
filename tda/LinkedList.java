@@ -8,12 +8,15 @@ import com.fmartinezvidal.utils.UtilsGeneral;
 
 public class LinkedList implements ILinkedList {
     Node head;
+    private void validateNumber(int value) {
+        if (value == Integer.MIN_VALUE || value == Integer.MAX_VALUE) {
+            throw new MissMatchException("The value is not valid for this linked list");
+        }
+    }
 
     @Override
     public void add(int value) {
-        if (!UtilsGeneral.isNumber(String.valueOf(value))){
-            throw new MissMatchException("The value must be a number");
-        }
+        validateNumber(value);
 
         Node newNode = new Node();
         newNode.data = value;
@@ -36,9 +39,8 @@ public class LinkedList implements ILinkedList {
 
     @Override
     public void insert(int index, int value) {
-        if (!UtilsGeneral.isNumber(String.valueOf(value)) ){
-            throw new MissMatchException("The value must be a number");
-        }
+        validateNumber(index);
+        validateNumber(value);
         if (index < 0 || index > size()) {
             throw new IndexOutBoundsException("The index must be between 0 and " + size());
         }
@@ -64,9 +66,7 @@ public class LinkedList implements ILinkedList {
 
     @Override
     public void remove(int index) {
-        if (!UtilsGeneral.isNumber(String.valueOf(index))){
-            throw new MissMatchException("The index must be a number");
-        }
+        validateNumber(index);
         if (isEmpty()) {
             throw new IsEmptyException("The list is empty");
         }
@@ -95,9 +95,7 @@ public class LinkedList implements ILinkedList {
         if (index < 0 || index >= size()) {
             throw new IndexOutBoundsException("The index must be between 0 and " + (size() - 1));
         }
-        if (!UtilsGeneral.isNumber(String.valueOf(index))){
-            throw new MissMatchException("The index must be a number");
-        }
+        validateNumber(index);
         
         Node current = head;
         for (int i = 0; i < index; i++) {

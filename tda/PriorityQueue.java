@@ -15,6 +15,12 @@ public class PriorityQueue  implements IPriorityQueue {
         priorities = new LinkedList();
     }
 
+    private void validateNumber(int value) {
+        if (value == Integer.MIN_VALUE || value == Integer.MAX_VALUE) {
+            throw new MissMatchException("The value is not valid for this priority queue");
+        }
+    }
+
     @Override
     public int getElement() {
         if (isEmpty()) {
@@ -33,13 +39,8 @@ public class PriorityQueue  implements IPriorityQueue {
 
     @Override
     public void add(int value, int priority) {
-        if (!UtilsGeneral.isNumber(String.valueOf(value))) {
-            throw new MissMatchException("The value must be a number");
-        }
-
-        if (!UtilsGeneral.isNumber(String.valueOf(priority))) {
-            throw new MissMatchException("The priority must be a number");
-        }
+        validateNumber(value);
+        validateNumber(priority);
 
         if (isEmpty()) {
             values.add(value);
